@@ -5,6 +5,7 @@ import Block from './component/Block';
 
 function App() {
   const [state, setState]=useState(Array(9).fill('null'));
+  const [current_turn, set_current_turn]=useState("X");
   return <div className='board'>
     <div className="board">
             <div className="row">
