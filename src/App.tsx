@@ -6,7 +6,7 @@ import Block from './component/Block';
 function App() {
   const [state, setState]=useState(Array(9).fill('null'));
   const [current_turn, set_current_turn]=useState("X");
-  const checkWinner=()=>{
+  const checkWinner=(state: any[])=>{
     const win=[
       [0,1,2],
       [3,4,5],
@@ -19,12 +19,27 @@ function App() {
     ];
     for(let i = 0; i <window.length; i++) {
       const [a,b,c]=win[i];
-  };
+      if(state[a]!==null && state[a] ===state[b] && state[a] ===state[c]) return true;
+  }
+  return false;
+};
+
   const handleBlockClick = (index: number) => {
+
     const stateCopy=Array.from(state);
+    if (stateCopy[index]!=null) return;
     stateCopy[index] = current_turn;
+
+    
+    const win=checkWinner(stateCopy);
+    if(win) {
+    // eslint-disable-next-line no-template-curly-in-string
+    alert('${current_turn} Won The Game');
+    }
     set_current_turn(current_turn==='X' ? 'O' : 'X');
+    
     setState(stateCopy);
+
   };
 
   return <div className='board'>
